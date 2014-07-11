@@ -4,9 +4,7 @@ To get the Tessel code working, you should do the following:
 
 	```
 	npm install climate-si7005
-
-	  --- or ---
-
+	   --- or ---
 	npm install climate-si7020
 	```
 
@@ -24,10 +22,14 @@ Check if you are connected with:
 
 3. Run code: 
 	
-	`tessel run gatd_climate.js`
+	```
+	tessel run gatd_climate.js
+	```
 
 4. If satisfied, load code into flash to be run automatically upon startup: 
 
-	`tessel push gatd_climate.js`
+	```
+	tessel push gatd_climate.js
+	```
 
 	After pushing, you can see output when connected by USB using `tessel listen`.
