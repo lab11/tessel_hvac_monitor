@@ -15,6 +15,7 @@ To get the Tessel code working, you should do the following:
 	```
 
 Check if you are connected with:
+
 	```
 	tessel wifi -l
 	```
