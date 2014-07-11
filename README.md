@@ -14,7 +14,7 @@ To get the Tessel code working, you should do the following:
 	tessel wifi -n [network name] -p [password]
 	```
 
-Check if you are connected with:
+	Check if you are connected with:
 
 	```
 	tessel wifi -l
