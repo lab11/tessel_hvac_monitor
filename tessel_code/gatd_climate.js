@@ -5,6 +5,8 @@ var climatelib = require('climate-si7005');
 
 var twitterHandle = '@mclarkk';
 
+var deviceID = tessel.deviceId();
+
 
 
 // module info
@@ -20,7 +22,8 @@ climate.on('ready', function () {
         //console.log('Degrees:', temp.toFixed(4) + 'F', 'Humidity:', humid.toFixed(4) + '%RH');
         //post("Report for " + twitterHandle + ' Degrees: ' + temp.toFixed(4) + 'F Humidity: ' + humid.toFixed(4) + '%RH');
         var data = {
-          location_str: "dummy",
+          device_id: deviceID,
+          location_str: "USA|Michigan|Ann Arbor|1851 Lake Lila Lane",
           temperature: temp.toFixed(4),
           temperature_units: "F",
           humidity: humid.toFixed(4),
@@ -28,7 +31,7 @@ climate.on('ready', function () {
         };
         var dataString = JSON.stringify(data);
         post(dataString);
-        setTimeout(loop, 300);
+        setTimeout(loop, 2000);
       });
     });
   });
