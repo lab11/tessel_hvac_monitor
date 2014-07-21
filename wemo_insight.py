@@ -54,13 +54,13 @@ s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
         self._state_control('SetBinaryState', '0')
 
     def _connect (self):
-        for i in range(0,2):
-            connection_attempts = 2
+        for i in range(0,5):
+            connection_attempts = 10
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             while connection_attempts > 0:
                 try:
                     sock.connect((self.ip_addr, self.port + i))
-                    sock.settimeout(0.1)
+                    sock.settimeout(1)
                     testreq = self.test.format(ipaddr=self.ip_addr,port=self.port+i)
                     testreq = testreq.replace('\n', '\r\n') + '\r\n\r\n'
                     sock.send(testreq.encode())
@@ -71,8 +71,9 @@ s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
                     return sock
                 except:
                     connection_attempts -= 1
-        raise WemoError('Unable to connect to wemo ip addr={}'
-                    .format(self.ip_addr))
+                    time.sleep(1)
+        print('Unable to connect to wemo ip addr={}'.format(self.ip_addr))
+        return None
 
     def _state_get (self, cmd):
         sock = self._connect()
@@ -83,14 +84,15 @@ s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
             port=self.port)
         soap_hdr = soap_hdr.replace('\n', '\r\n')
         soap = soap_hdr + '\r\n\r\n' + soap_bdy
-        sock.send(soap.encode())
         response = ''
-        while True:
-            data = sock.recv(1024)
-            response += data.decode()
-            if '</s:Envelope>' in response:
-                break
-        sock.close()
+        if sock != None:
+            sock.send(soap.encode())
+            while True:
+                data = sock.recv(1024)
+                response += data.decode()
+                if '</s:Envelope>' in response:
+                    break
+            sock.close()
         return response
 
     def _state_control (self, cmd, state):
@@ -102,5 +104,6 @@ s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
             port=self.port)
         soap_hdr = soap_hdr.replace('\n', '\r\n')
         soap = soap_hdr + '\r\n\r\n' + soap_bdy
-        sock.send(soap.encode())
-        sock.close()
+        if sock != None:
+            sock.send(soap.encode())
+            sock.close()
