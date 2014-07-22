@@ -53,7 +53,7 @@ def restart_system():
     restart_tessel()
     time.sleep(15)
     thread.start_new_thread(connect_to_gatd, ())
-    time.sleep(10)
+    time.sleep(30)
 
 # restarts tessel by toggling attached wemo
 def restart_tessel():
@@ -84,9 +84,7 @@ class stream_receiver (sioc.BaseNamespace):
 def connect_to_gatd():
     global socketIO, stream_namespace
     socketIO = sioc.SocketIO(SOCKETIO_HOST, SOCKETIO_PORT)
-    print("{}".format(SOCKETIO_NAMESPACE))
     stream_namespace = socketIO.define(stream_receiver, '/{}'.format(SOCKETIO_NAMESPACE))
-    print("{}".format(stream_namespame))
     socketIO.wait()
 
 if __name__=="__main__":
