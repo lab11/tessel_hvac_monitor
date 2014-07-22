@@ -53,7 +53,7 @@ def restart_system():
 	restart_tessel()
 	time.sleep(3)
 	thread.start_new_thread(connect_to_gatd, ())
-	time.sleep(10)
+	time.sleep(30)
 
 # restarts tessel by toggling attached wemo
 def restart_tessel():
