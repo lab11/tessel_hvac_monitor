@@ -25,7 +25,7 @@ expected_time = None #the time the next packet is expected
 switch = wemo.WemoInsight("10.0.0.110")
 
 # GATD connection parameters
-SOCKETIO_HOST      = 'inductor.eecs.umich.edu'
+SOCKETIO_HOST      = 'gatd.eecs.umich.edu'
 SOCKETIO_PORT      = 8082
 SOCKETIO_NAMESPACE = 'stream'
 socketIO = None

@@ -45,7 +45,7 @@ function post(status) {
 
   // Set up a request
   var req = http.request({
-    host: 'inductor.eecs.umich.edu',
+    host: 'gatd.eecs.umich.edu',
     port: 8081,
     path: '/oBNeydOsio',
     method: 'POST',
